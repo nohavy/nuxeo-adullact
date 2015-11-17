@@ -23,8 +23,8 @@ import static org.nuxeo.adullact.webdelib.WebDelibConstants.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.ClientException;
-import org.nuxeo.ecm.core.api.ClientRuntimeException;
+import org.nuxeo.ecm.core.api.NuxeoException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -64,30 +64,26 @@ public class WebDelibDomainHandler implements PostContentCreationHandler {
             return;
         }
 
-        try {
-            DocumentRef domainRef = new PathRef(DOMAIN_PATH);
-            if (!session.exists(domainRef)) {
-                String domainName = DOMAIN_NAME;
+        DocumentRef domainRef = new PathRef(DOMAIN_PATH);
+        if (!session.exists(domainRef)) {
+            String domainName = DOMAIN_NAME;
 
-                DocumentModel doc = session.createDocumentModel("/",
-                        domainName, DOC_TYPE_DOMAIN);
-                doc.setPropertyValue("dc:title", DOMAIN_TITLE_VALUE);
-                doc.setPropertyValue("dc:description", DOMAIN_DESCRIPTION_VALUE);
-                session.createDocument(doc);
-            }
+            DocumentModel doc = session.createDocumentModel("/",
+                    domainName, DOC_TYPE_DOMAIN);
+            doc.setPropertyValue("dc:title", DOMAIN_TITLE_VALUE);
+            doc.setPropertyValue("dc:description", DOMAIN_DESCRIPTION_VALUE);
+            session.createDocument(doc);
+        }
 
-            DocumentRef archContRef = new PathRef(ARCHIVE_CONTAINER_PATH);
-            if (!session.exists(archContRef)) {
-                String archContName = ARCHIVE_CONTAINER_NAME;
+        DocumentRef archContRef = new PathRef(ARCHIVE_CONTAINER_PATH);
+        if (!session.exists(archContRef)) {
+            String archContName = ARCHIVE_CONTAINER_NAME;
 
-                DocumentModel doc = session.createDocumentModel(DOMAIN_PATH,
-                        archContName, DOC_TYPE_ARCHIVE_CONTAINER);
-                doc.setPropertyValue("dc:title", ARCH_CONT_TITLE_VALUE);
-                doc.setPropertyValue("dc:description", ARCH_CONT_DESCRIPTION_VALUE);
-                session.createDocument(doc);
-            }
-        } catch (ClientException e) {
-            throw new ClientRuntimeException(e);
+            DocumentModel doc = session.createDocumentModel(DOMAIN_PATH,
+                    archContName, DOC_TYPE_ARCHIVE_CONTAINER);
+            doc.setPropertyValue("dc:title", ARCH_CONT_TITLE_VALUE);
+            doc.setPropertyValue("dc:description", ARCH_CONT_DESCRIPTION_VALUE);
+            session.createDocument(doc);
         }
     }
 

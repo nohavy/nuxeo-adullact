@@ -16,7 +16,7 @@
 */
 package org.nuxeo.adullact.webdelib.vocabulary;
 
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 /**
@@ -26,8 +26,8 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 public interface WebDelibVocabularyManager {
 
 
-    public void documentAdded(DocumentModel doc) throws ClientException;
+    public void documentAdded(DocumentModel doc) throws NuxeoException;
 
-    public void documentRemoved(DocumentModel doc) throws ClientException;
+    public void documentRemoved(DocumentModel doc) throws NuxeoException;
 
 }

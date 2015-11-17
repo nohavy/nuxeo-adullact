@@ -7,8 +7,8 @@
   </description>
   <home-page>TO FILL</home-page>
   <vendor>Nuxeo</vendor>
-  <installer restart="false" />
-  <uninstaller restart="false" />
+  <installer restart="true" />
+  <uninstaller restart="true" />
   <hotreload-support>true</hotreload-support>
   <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance>
   <nuxeo-validation>waiting_nuxeo_certified</nuxeo-validation>
@@ -16,13 +16,7 @@
   <supported>false</supported>
   <platforms>
     <platform>cap-@VERSION@</platform>
-    <platform>cap-5.7.1</platform>
   </platforms>
-<!-- 
-  <dependencies>
-    <package>nuxeo-adullact-service:@VERSION@</package>
-  </dependencies>
- -->
-  <license>LGPL</license>
+   <license>LGPL</license>
   <license-url>http://www.gnu.org/licenses/lgpl.html</license-url>
 </package>

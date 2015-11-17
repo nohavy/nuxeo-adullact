@@ -31,7 +31,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
@@ -123,7 +123,7 @@ public class TestMapperService {
         checkImport();
     }
 
-    public void checkImport() throws ClientException {
+    public void checkImport() throws NuxeoException {
         // ****** STATISTICS *******
         List<DocumentModel> docs = session.query("SELECT * FROM WebDelibSeance");
         assertEquals(1, docs.size());

@@ -31,7 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.ZipUtils;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
@@ -47,7 +47,7 @@ public class WebDelibArchiveExtraction implements EventListener {
     private static final Log log = LogFactory.getLog(WebDelibArchiveExtraction.class);
 
     @Override
-    public void handleEvent(Event event) throws ClientException {
+    public void handleEvent(Event event) throws NuxeoException {
 
         if (!(event.getContext() instanceof DocumentEventContext)) {
             return;
@@ -63,7 +63,7 @@ public class WebDelibArchiveExtraction implements EventListener {
 
         if (ABOUT_TO_MOVE.equals(eventName)
                 || BEFORE_DOC_UPDATE.equals(eventName)) {
-            throw new ClientException(
+            throw new NuxeoException(
                     "WebDelib Archive can't be moved or updated");
         }
 
@@ -81,7 +81,7 @@ public class WebDelibArchiveExtraction implements EventListener {
             try {
                 ZipUtils.unzip(zip.getStream(), directory);
             } catch (IOException e) {
-                throw new ClientException(e);
+                throw new NuxeoException(e);
             }
             for (File child : directory.listFiles()) {
                 log.debug("File found in zip archive: "
@@ -91,7 +91,7 @@ public class WebDelibArchiveExtraction implements EventListener {
                 }
             }
             if (zipFile == null) {
-                throw new ClientException(
+                throw new NuxeoException(
                         "Can not find XML file inside the zip archive");
             }
 
@@ -102,7 +102,7 @@ public class WebDelibArchiveExtraction implements EventListener {
         try {
             importer.importDocuments(root, zipFile);
         } catch (Exception e) {
-            throw new ClientException(e);
+            throw new NuxeoException(e);
         }
 
         session.save();

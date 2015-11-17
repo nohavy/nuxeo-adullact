@@ -22,7 +22,7 @@ import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.ABOUT_TO_CREATE;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.ABOUT_TO_REMOVE;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.BEFORE_DOC_UPDATE;
 
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventListener;
@@ -35,7 +35,7 @@ import org.nuxeo.runtime.api.Framework;
 public class WebDelibVocabularyManagerListener implements EventListener {
 
     @Override
-    public void handleEvent(Event event) throws ClientException {
+    public void handleEvent(Event event) throws NuxeoException {
         if (!(event.getContext() instanceof DocumentEventContext)) {
             return;
         }

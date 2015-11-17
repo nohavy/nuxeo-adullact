@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.nuxeo.adullact.webdelib</groupId>
     <artifactId>nuxeo-adullact-webdelib-parent</artifactId>
-    <version>5.7-SNAPSHOT</version>
+    <version>7.4</version>
   </parent>
+  
   <artifactId>nuxeo-adullact-webdelib-mp</artifactId>
   <packaging>zip</packaging>
   <name>Market Place Package for WebDelib integration to Nuxeo</name>
-  <description/>
+  
   <dependencies>
     <dependency>
       <groupId>org.nuxeo.ecm.platform</groupId>
@@ -24,13 +26,16 @@
       <artifactId>nuxeo-adullact-webdelib-core</artifactId>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
         <groupId>org.nuxeo.build</groupId>
-        <artifactId>nuxeo-distribution-tools</artifactId>
+        <artifactId>ant-assembly-maven-plugin</artifactId>
         <configuration>
-          <buildFile>${basedir}/src/main/assemble/assembly.xml</buildFile>
+          <buildFiles>
+            <buildFile>${basedir}/src/main/assemble/assembly.xml</buildFile>
+          </buildFiles>
         </configuration>
       </plugin>
     </plugins>

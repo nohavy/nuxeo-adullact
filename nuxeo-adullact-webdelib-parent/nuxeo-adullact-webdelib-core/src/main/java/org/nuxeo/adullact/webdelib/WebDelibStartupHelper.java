@@ -9,7 +9,7 @@ import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.webapp.helpers.StartupHelper;
@@ -38,7 +38,7 @@ public class WebDelibStartupHelper extends StartupHelper {
             if ( documentManager.exists(domainRef) ) {
                 return navigationContext.navigateToRef(domainRef);
             }
-        } catch (ClientException e) {
+        } catch (NuxeoException e) {
             log.error("Error during default Domain fetch, navigate into the Dashboard", e);
         }
         return dashboardNavigationHelper.navigateToDashboard();

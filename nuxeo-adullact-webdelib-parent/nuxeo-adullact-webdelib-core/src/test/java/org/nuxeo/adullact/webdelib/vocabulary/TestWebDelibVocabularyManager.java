@@ -23,11 +23,11 @@ import static org.nuxeo.ecm.platform.importer.xml.parser.XMLImporterServiceImpl.
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentModelList;
-import org.nuxeo.ecm.core.api.model.PropertyException;
+import org.nuxeo.ecm.core.api.PropertyException;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.storage.sql.DatabaseHelper;
 import org.nuxeo.ecm.core.test.DefaultRepositoryInit;
@@ -72,7 +72,7 @@ public class TestWebDelibVocabularyManager {
 
     @Test
     public void shouldNotAddEntryInVocabularyWhenDocCreatedWithEmptyValue()
-            throws ClientException {
+            throws NuxeoException {
         DocumentModelList entries = getEntries();
         int n = entries.size();
 
@@ -98,7 +98,7 @@ public class TestWebDelibVocabularyManager {
 
     @Test
     public void shouldAddEntryInVocabularyWhenDocCreated()
-            throws ClientException {
+            throws NuxeoException {
         DocumentModelList entries = getEntries();
         int n = entries.size();
 
@@ -116,7 +116,7 @@ public class TestWebDelibVocabularyManager {
 
     @Test
     public void shouldRemoveEntryInVocabularyWhenDocRemoved()
-            throws ClientException {
+            throws NuxeoException {
         DocumentModel entry = getEntry("titi");
 
         createDoc("titi");
@@ -146,7 +146,7 @@ public class TestWebDelibVocabularyManager {
     @Ignore
     @Test
     public void shouldRemoveEntryInVocabularyWhenDocStructureRemoved()
-            throws ClientException {
+            throws NuxeoException {
         DocumentModel container = session.createDocumentModel("Folder");
         container.setPathInfo("/", "test");
         container = session.createDocument(container);
@@ -167,7 +167,7 @@ public class TestWebDelibVocabularyManager {
         assertEquals(new Long(0), entry.getPropertyValue("obsolete"));
     }
 
-    private void removeOneDoc(String title) throws ClientException {
+    private void removeOneDoc(String title) throws NuxeoException {
         DocumentModelList docs = session.query("SELECT * From Document WHERE dc:title = '"
                 + title + "'");
         session.removeDocument(docs.get(0).getRef());
@@ -175,7 +175,7 @@ public class TestWebDelibVocabularyManager {
 
     }
 
-    private void createDoc(String title) throws ClientException,
+    private void createDoc(String title) throws NuxeoException,
             PropertyException {
         DocumentModel doc = session.createDocumentModel("File");
         doc.putContextData(XML_IMPORTER_INITIALIZATION, true);
@@ -185,14 +185,14 @@ public class TestWebDelibVocabularyManager {
         waitFullText();
     }
 
-    private DocumentModelList getEntries() throws ClientException {
+    private DocumentModelList getEntries() throws NuxeoException {
         Session dirSession = dirService.open("voca");
         DocumentModelList entries = dirSession.getEntries();
         return entries;
 
     }
 
-    private DocumentModel getEntry(String id) throws ClientException {
+    private DocumentModel getEntry(String id) throws NuxeoException {
         Session dirSession = dirService.open("voca");
         DocumentModel entry = dirSession.getEntry(id);
         return entry;

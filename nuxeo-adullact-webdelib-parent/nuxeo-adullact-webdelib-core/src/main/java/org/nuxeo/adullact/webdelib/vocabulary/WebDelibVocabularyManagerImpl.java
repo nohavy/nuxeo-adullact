@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.ClientException;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.directory.BaseSession;
 import org.nuxeo.ecm.directory.Session;
@@ -47,8 +47,7 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
 
     @Override
     public void registerContribution(Object contribution,
-            String extensionPoint, ComponentInstance contributor)
-            throws Exception {
+            String extensionPoint, ComponentInstance contributor) {
         if (!MAPPING_EXT_PT.equals(extensionPoint)) {
             log.error("Extension point name unknown: " + extensionPoint);
             return;
@@ -70,14 +69,14 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
     }
 
     @Override
-    public void documentAdded(DocumentModel doc) throws ClientException {
+    public void documentAdded(DocumentModel doc) throws NuxeoException {
         for (WebDelibVocabularyMappingConfiguration conf : confs.values()) {
             documentAdded(doc, conf);
         }
     }
 
     @Override
-    public void documentRemoved(DocumentModel doc) throws ClientException {
+    public void documentRemoved(DocumentModel doc) throws NuxeoException {
         for (WebDelibVocabularyMappingConfiguration conf : confs.values()) {
             documentRemoved(doc, conf);
         }
@@ -85,7 +84,7 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
     }
 
     public void documentAdded(DocumentModel doc,
-            WebDelibVocabularyMappingConfiguration conf) throws ClientException {
+            WebDelibVocabularyMappingConfiguration conf) throws NuxeoException {
         if (!doc.hasSchema(conf.schema)) {
             return;
         }
@@ -100,7 +99,7 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
     }
 
     public void documentRemoved(DocumentModel doc,
-            WebDelibVocabularyMappingConfiguration conf) throws ClientException {
+            WebDelibVocabularyMappingConfiguration conf) throws NuxeoException {
         if (!doc.hasSchema(conf.schema)) {
             return;
         }
@@ -115,11 +114,11 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
     }
 
     private long removeEntry(String directory, String id)
-            throws ClientException {
+            throws NuxeoException {
         Session dirSession = getDirService().open(directory);
 
         if (dirSession == null) {
-            throw new ClientException(
+            throw new NuxeoException(
                     "Can't open session on followg directory, please "
                             + "check WebDelib Voca Manager configuration: "
                             + directory);
@@ -129,12 +128,12 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
         try {
             entry = dirSession.getEntry(id);
             if (entry == null) {
-                throw new ClientException(
+                throw new NuxeoException(
                         "Vocabulary entry never met and remove ask => problem");
             }
             Long ordering = (Long) entry.getPropertyValue("ordering");
             if (ordering < 1) {
-                throw new ClientException(
+                throw new NuxeoException(
                         "Vocabulary entry met but without coins and remove ask => problem");
             }
             if (ordering == 1) {
@@ -148,7 +147,7 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
         return (Long) entry.getPropertyValue("ordering");
     }
 
-    private long addEntry(String directory, String id) throws ClientException {
+    private long addEntry(String directory, String id) throws NuxeoException {
         if (getDirService() == null) {
             log.error("Can't get the directory service, so can't update directory.");
             return -1;
@@ -187,7 +186,7 @@ public class WebDelibVocabularyManagerImpl extends DefaultComponent implements
         return (Long) entry.getPropertyValue("ordering");
     }
 
-    public DirectoryService getDirService() throws ClientException {
+    public DirectoryService getDirService() throws NuxeoException {
         if (dirService == null) {
             dirService = Framework.getLocalService(DirectoryService.class);
         }
