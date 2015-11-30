@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.nuxeo.adullact.webdelib</groupId>
     <artifactId>nuxeo-adullact-webdelib-parent</artifactId>
-    <version>7.4</version>
+    <version>7.10</version>
   </parent>
   
   <artifactId>nuxeo-adullact-webdelib-mp</artifactId>

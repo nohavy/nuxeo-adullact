@@ -36,7 +36,7 @@ public class WebDelibConstants {
 
     public static final String DOC_TYPE_ARCHIVE = "WebDelibArchive";
 
-    public static final String DOMAIN_NAME = "webdelib-referentiel";
+    public static final String DOMAIN_NAME = "default-domain";
 
     public static final String DOMAIN_PATH = "/" + DOMAIN_NAME;
 

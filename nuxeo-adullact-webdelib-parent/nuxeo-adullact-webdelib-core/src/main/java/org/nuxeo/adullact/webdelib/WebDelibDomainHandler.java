@@ -18,13 +18,10 @@ package org.nuxeo.adullact.webdelib;
 
 import static org.nuxeo.adullact.webdelib.WebDelibConstants.DOC_TYPE_DOMAIN;
 import static org.nuxeo.adullact.webdelib.WebDelibConstants.DOC_TYPE_ARCHIVE_CONTAINER;
-import static org.nuxeo.adullact.webdelib.WebDelibConstants.DOMAIN_NAME;
 import static org.nuxeo.adullact.webdelib.WebDelibConstants.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.NuxeoException;
-import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -45,7 +42,7 @@ public class WebDelibDomainHandler implements PostContentCreationHandler {
 
     public static final String DOMAIN_DESCRIPTION_VALUE = "Référenciel WebDelib";
 
-    public static final String ARCH_CONT_TITLE_VALUE = "Archives";
+    public static final String ARCH_CONT_TITLE_VALUE = "Archives délibérations";
 
     public static final String ARCH_CONT_DESCRIPTION_VALUE = "Contient toutes les archives délivrées par WebDelib à Nuxeo.";
 
@@ -64,16 +61,16 @@ public class WebDelibDomainHandler implements PostContentCreationHandler {
             return;
         }
 
-        DocumentRef domainRef = new PathRef(DOMAIN_PATH);
-        if (!session.exists(domainRef)) {
-            String domainName = DOMAIN_NAME;
-
-            DocumentModel doc = session.createDocumentModel("/",
-                    domainName, DOC_TYPE_DOMAIN);
-            doc.setPropertyValue("dc:title", DOMAIN_TITLE_VALUE);
-            doc.setPropertyValue("dc:description", DOMAIN_DESCRIPTION_VALUE);
-            session.createDocument(doc);
-        }
+//        DocumentRef domainRef = new PathRef(DOMAIN_PATH);
+//        if (!session.exists(domainRef)) {
+//            String domainName = DOMAIN_NAME;
+//
+//            DocumentModel doc = session.createDocumentModel("/",
+//                    domainName, DOC_TYPE_DOMAIN);
+//            doc.setPropertyValue("dc:title", DOMAIN_TITLE_VALUE);
+//            doc.setPropertyValue("dc:description", DOMAIN_DESCRIPTION_VALUE);
+//            session.createDocument(doc);
+//        }
 
         DocumentRef archContRef = new PathRef(ARCHIVE_CONTAINER_PATH);
         if (!session.exists(archContRef)) {
