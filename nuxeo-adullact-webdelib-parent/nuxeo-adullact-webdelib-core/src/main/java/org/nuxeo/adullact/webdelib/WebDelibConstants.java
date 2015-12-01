@@ -24,6 +24,8 @@ public class WebDelibConstants {
 
     public static final String DOC_TYPE_DOMAIN = "WebDelibDomain";
 
+    public static final String DOC_TYPE_SPACE = "WebDelibSpace";
+
     public static final String DOC_TYPE_STRUCTURE = "WebDelibStructure";
 
     public static final String DOC_TYPE_SEANCE = "WebDelibSeance";
@@ -38,12 +40,15 @@ public class WebDelibConstants {
 
     public static final String DOMAIN_NAME = "default-domain";
 
+    public static final String SPACE_NAME = "deliberations";
+
     public static final String DOMAIN_PATH = "/" + DOMAIN_NAME;
+
+    public static final String SPACE_PATH = DOMAIN_PATH + "/" + SPACE_NAME;
 
     public static final String ARCHIVE_CONTAINER_NAME = "webdelib-archive";
 
-    public static final String ARCHIVE_CONTAINER_PATH = DOMAIN_PATH + "/"
-            + ARCHIVE_CONTAINER_NAME;
+    public static final String ARCHIVE_CONTAINER_PATH = SPACE_PATH + "/" + ARCHIVE_CONTAINER_NAME;
 
     public static final String ARCHIVE_ZIP_FIELD = "file:content";
 

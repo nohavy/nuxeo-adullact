@@ -19,7 +19,7 @@ package org.nuxeo.adullact.webdelib;
 
 import static org.nuxeo.adullact.webdelib.WebDelibConstants.ARCHIVE_ZIP_FIELD;
 import static org.nuxeo.adullact.webdelib.WebDelibConstants.DOC_TYPE_ARCHIVE;
-import static org.nuxeo.adullact.webdelib.WebDelibConstants.DOMAIN_PATH;
+import static org.nuxeo.adullact.webdelib.WebDelibConstants.SPACE_PATH;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.ABOUT_TO_MOVE;
 import static org.nuxeo.ecm.core.api.event.DocumentEventTypes.BEFORE_DOC_UPDATE;
 
@@ -96,7 +96,7 @@ public class WebDelibArchiveExtraction implements EventListener {
             }
 
         }
-        DocumentModel root = session.getDocument(new PathRef(DOMAIN_PATH));
+        DocumentModel root = session.getDocument(new PathRef(SPACE_PATH));
 
         XMLImporterService importer = Framework.getLocalService(XMLImporterService.class);
         try {
